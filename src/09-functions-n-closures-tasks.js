@@ -48,8 +48,8 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  function power(x) {
-    return x ** exponent;
+  function power(a) {
+    return a ** exponent;
   }
   return power;
 }
@@ -89,11 +89,15 @@ function getPolynom() {
  */
 function memoize(/* func */) {
   throw new Error('Not implemented');
-  // let cash = new Map();
-  // return function() {
-  //   let result = func();
-  //   cash.set()
-  // }
+  // const cash = new Map();
+  // return function cashed() {
+  //   const result = func();
+  //   if (cash.has(result)) {
+  //     return cash.get(result);
+  //   }
+  //   cash.set(result, result);
+  //   return result;
+  // };
 }
 
 

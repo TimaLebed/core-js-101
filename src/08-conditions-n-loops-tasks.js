@@ -94,8 +94,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return (a + b > c && a + c > b && b + c > a);
 }
 
 
@@ -178,20 +178,9 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
-  // const set = new Set();
-  // let result = 0;
-  // // eslint-disable-next-line no-restricted-syntax
-  // for (const char of str) {
-  //   set.add(char);
-  // }
-
-  // // eslint-disable-next-line no-cond-assign
-  // if (set.size = 1) result = set.keys();
-  // result = null;
-
-  // return result;
+function findFirstSingleChar(str) {
+  const strWithoutSpace = str.split(' ').join('');
+  return [...strWithoutSpace].find((e, _i, ar) => (ar.indexOf(e) === ar.lastIndexOf(e) ? e : null));
 }
 
 

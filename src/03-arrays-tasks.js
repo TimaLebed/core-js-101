@@ -199,8 +199,8 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  return arr.map((x) => x.join(',')).reduce((a, b) => `${a}\n${b}`);
 }
 
 /**
@@ -271,8 +271,8 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.map((x, i) => [...Array(i + 1).keys()].map(() => x)).flat(Infinity);
 }
 
 
@@ -324,8 +324,9 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numbWord = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.map((x) => numbWord.indexOf(x)).sort().map((x) => numbWord[x]);
 }
 
 /**
@@ -446,8 +447,12 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arr = [...Array(n)].fill([...Array(n)].fill(0));
+  return arr.map((x, i) => x.map((y, j) => {
+    const result = i === j ? 1 : y;
+    return result;
+  }));
 }
 
 /**
@@ -552,8 +557,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return arr.flat(Infinity)[indexes.reduce((a, b) => a + b)];
 }
 
 
@@ -575,13 +580,26 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
-  // const centerIndex = Math.floor(arr.length / 2);
-  // const middle = arr.length % 2 ? arr[centerIndex] : Number('');
-  // const start = arr.slice(0, centerIndex);
-  // const end = arr.slice(-centerIndex);
-  // return (arr.length <= 2) ? arr.reverse() : [...end, middle, ...start];
+function swapHeadAndTail(arr) {
+  const center = (arr.length + 1) / 2;
+  let result;
+  switch (true) {
+    case arr.length < 2:
+      result = arr;
+      break;
+    case arr.length === 2:
+      result = arr.reverse();
+      break;
+    case arr.length % 2 === 0:
+      result = arr.slice(center).concat(arr.slice(0, center));
+      break;
+    default:
+      result = arr.slice(center);
+      result.push(center);
+      result = result.concat(arr.slice(0, center - 1));
+      break;
+  }
+  return result;
 }
 
 
